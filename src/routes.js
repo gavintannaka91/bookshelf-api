@@ -36,8 +36,6 @@ const routes = [
         path: '/books/{id}',
         handler: deleteBookByIdHandler,
     },
-
-
 ];
 
 module.exports = routes;
