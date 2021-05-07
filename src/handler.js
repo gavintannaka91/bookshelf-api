@@ -158,7 +158,7 @@ const getAllBooksHandler = (request, h) => {
         */
         const pattern = new RegExp(name, 'gi');
 
-        const filteredBooks = books.filter((book) => pattern.test(book.name)).map((book) => ({
+        const filteredBooks = books.filter((book) => book.name.match(pattern)).map((book) => ({
             id: book.id,
             name: book.name,
             publisher: book.publisher,
