@@ -152,9 +152,12 @@ const getAllBooksHandler = (request, h) => {
     }
 
     else if (name) {
-        // cause book lists to disappear after running GET request and query of name
-        // require further troubleshooting
+        /* 
+            cause book lists to disappear after running GET request and query of name
+            require further troubleshooting
+        */
         const pattern = new RegExp(name, 'gi');
+
         const filteredBooks = books.filter((book) => pattern.test(book.name)).map((book) => ({
             id: book.id,
             name: book.name,
