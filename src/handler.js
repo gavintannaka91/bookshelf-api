@@ -48,8 +48,8 @@ const addBookHandler = (request, h) => {
   if (checkReadPage) {
     const response = h.response({
       status: 'fail',
-      message: `Gagal menambahkan buku. 
-                readPage tidak boleh lebih besar dari pageCount`,
+      // eslint-disable-next-line max-len
+      message: `Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount`,
     });
     response.code(400);
     return response;
@@ -255,8 +255,8 @@ const editBookByIdHandler = (request, h) => {
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
-      message: `Gagal memperbarui buku. 
-                readPage tidak boleh lebih besar dari pageCount`,
+      // eslint-disable-next-line max-len
+      message: `Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount`,
     });
 
     response.code(400);
