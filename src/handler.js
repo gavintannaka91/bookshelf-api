@@ -13,6 +13,28 @@ const addBookHandler = (request, h) => {
     reading,
   } = request.payload;
 
+  const checkName = name === undefined;
+  const checkReadPage = pageCount < readPage;
+
+  if (checkName) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
+    });
+    response.code(400);
+    return response;
+  }
+
+  if (checkReadPage) {
+    const response = h.response({
+      status: 'fail',
+      // eslint-disable-next-line max-len
+      message: `Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount`,
+    });
+    response.code(400);
+    return response;
+  }
+
   const id = nanoid(16);
   const finished = pageCount === readPage;
   const insertedAt = new Date().toISOString();
@@ -33,27 +55,6 @@ const addBookHandler = (request, h) => {
     updatedAt,
   };
 
-  const checkName = newBook.name === undefined;
-  const checkReadPage = newBook.pageCount < newBook.readPage;
-
-  if (checkName) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku',
-    });
-    response.code(400);
-    return response;
-  }
-
-  if (checkReadPage) {
-    const response = h.response({
-      status: 'fail',
-      // eslint-disable-next-line max-len
-      message: `Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount`,
-    });
-    response.code(400);
-    return response;
-  }
 
   books.push(newBook);
 
@@ -82,7 +83,7 @@ const addBookHandler = (request, h) => {
 const getAllBooksHandler = (request, h) => {
   const {name, reading, finished} = request.query;
 
-  // reading param exist
+  // check if query params exist
   if (reading && Number(reading) === 1 || Number(reading) === 0) {
     let readingParam = Number(reading);
     if (readingParam === 1) {
